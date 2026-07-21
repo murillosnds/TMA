@@ -3,6 +3,7 @@ package github.murillosnds.tma.service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -16,14 +17,8 @@ public class JwtService {
     private final SecretKey secretKey;
     private final long EXPIRATION = 86400000; 
 
-    public JwtService() {
-        String SECRET_KEY = System.getenv("JWT_SECRET_KEY");
-
-        if (SECRET_KEY == null || SECRET_KEY.isBlank()) {
-        throw new IllegalStateException("JWT_SECRET_KEY environment variable is not set");
-        }
-        
-        byte[] keyBytes = Base64.getDecoder().decode(SECRET_KEY);
+    public JwtService(@Value("${jwt.secret-key}") String secret) {   
+        byte[] keyBytes = Base64.getDecoder().decode(secret);
         this.secretKey = Keys.hmacShaKeyFor(keyBytes);
     }
 
