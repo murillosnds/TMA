@@ -7,6 +7,7 @@
 ![JUnit](https://img.shields.io/badge/junit-000000?style=for-the-badge&logo=junit5&logoColor=green)
 ![Swagger](https://img.shields.io/badge/swagger-000000?style=for-the-badge&logo=swagger&logoColor=green)
 ![PostgreSQL](https://img.shields.io/badge/postgresql-000000?style=for-the-badge&logo=postgresql&logoColor=green)
+![Docker](https://img.shields.io/badge/docker-000000?style=for-the-badge&logo=docker&logoColor=green)
 ![Argon2](https://img.shields.io/badge/argon2-000000?style=for-the-badge&logoColor=green)
 
 ## Endpoints: 
@@ -153,6 +154,16 @@ Get-Content .env | ForEach-Object { $name, $value = $_ -split '=', 2; Set-Item -
 ```
 
 The API will be available at `http://localhost:8080`.
+
+## How to run the project with Docker Compose
+
+### Follow the previous steps for generating the secure key and editing the .env file.
+
+### Now, run:
+
+```bash
+docker compose up -d
+```
 
 ### ⭐ If this project has been helpful to you, please consider giving the repository a star!
 
