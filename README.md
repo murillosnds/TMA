@@ -154,14 +154,6 @@ Get-Content .env | ForEach-Object { $name, $value = $_ -split '=', 2; Set-Item -
 
 The API will be available at `http://localhost:8080`.
 
-## Why do I need to configure the JWT secret key?
-
-The JWT secret key is used to **sign and verify** the JSON Web Tokens that authenticate API requests. Without it, the server cannot generate valid tokens or validate incoming ones.
-
-- **Security**: The key must be kept secret. If it is exposed, anyone can forge tokens and impersonate users.
-- **Environment-specific**: Each deployment (development, staging, production) should use a **different** secret key to avoid cross-environment issues.
-- **Not versioned**: The key should never be hardcoded in the source code or committed to version control. That's why we use an `.env` file (ignored by Git) to store it.
-
 ### ⭐ If this project has been helpful to you, please consider giving the repository a star!
 
 This project is licensed under the MIT License.  
