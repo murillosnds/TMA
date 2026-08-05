@@ -52,6 +52,13 @@ public class TaskService {
     return toDTO(savedTask);
     }
 
+    public void deleteTaskById(java.util.UUID id) {
+        if (!taskRepository.existsById(id)) {
+            throw new RuntimeException("Task not found!");
+        }
+        taskRepository.deleteById(id);
+    }
+
     private TaskResponseDTO toDTO(Task task) {
         return new TaskResponseDTO(
                 task.getId(),

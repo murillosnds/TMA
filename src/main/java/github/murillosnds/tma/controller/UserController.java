@@ -4,10 +4,11 @@ import java.net.URI;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;   // ← ADICIONADO
-import org.springframework.web.bind.annotation.RequestBody; // ← CORRIGIDO (Spring)
+import org.springframework.web.bind.annotation.PostMapping;   
+import org.springframework.web.bind.annotation.RequestBody; 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import github.murillosnds.tma.dto.CreateUserRequestDTO;
@@ -73,5 +74,19 @@ public class UserController {
         return ResponseEntity
         .created(URI.create("/users/" + savedUser.getId()))
         .body(savedUser);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<User> deleteUser(@PathVariable Long id) {
+        Optional<User> user = userService.findUserById(id);
+        
+        if (user.isEmpty()) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(null);
+        }
+
+        User deletedUser = userService.delete(user.get());
+        return ResponseEntity.ok(deletedUser);
     }
 }
