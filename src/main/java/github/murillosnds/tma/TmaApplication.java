@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 @SpringBootApplication
 @OpenAPIDefinition(
     info = @Info(
-        title = "TMA | Task Manager API",
+        title = "TMA | Tasks Management API",
         version = "1.0.0",
         description = "To-Do API"
     )
