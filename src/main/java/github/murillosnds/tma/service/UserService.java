@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import github.murillosnds.tma.entity.User;
 import github.murillosnds.tma.repository.UserRepository;
 import github.murillosnds.tma.dto.UpdateUserRequestDTO;
+import github.murillosnds.tma.dto.UserResponseDTO;
 
 @Service
 public class UserService {
@@ -20,8 +21,9 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public Optional<User> findUserById(Long id) {
-        return userRepository.findById(id); 
+    public Optional<UserResponseDTO> findUserById(Long id) {
+        return userRepository.findById(id)
+            .map(user -> new UserResponseDTO(user.getId(), user.getName(), user.getEmail())); 
     }
 
     public User create(User user) {
@@ -29,9 +31,13 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User delete(User user) {
-        userRepository.delete(user);
-        return user;
+    public boolean deleteById(Long id) {
+        if (!userRepository.existsById(id)) {
+            return false;
+        }
+
+        userRepository.deleteById(id);
+        return true;
     }
 
     public User patchUser(Long id, UpdateUserRequestDTO request) {

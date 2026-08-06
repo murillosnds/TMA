@@ -55,7 +55,7 @@ public class TaskController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> findUserById(@PathVariable UUID id) {
+    public ResponseEntity<?> findTaskById(@PathVariable UUID id) {
 
         return taskService.findTaskById(id)
         .<ResponseEntity<?>>map(ResponseEntity::ok)

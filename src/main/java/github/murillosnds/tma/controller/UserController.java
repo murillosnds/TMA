@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import github.murillosnds.tma.dto.CreateUserRequestDTO;
 import github.murillosnds.tma.dto.UpdateUserRequestDTO;
+import github.murillosnds.tma.dto.UserResponseDTO;
 import github.murillosnds.tma.entity.User;
 import github.murillosnds.tma.service.UserService;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -43,15 +44,15 @@ public class UserController {
     @ApiResponse(responseCode = "404", description = "User not found", content = @Content)
     })
     public ResponseEntity<?> findUserById(@PathVariable Long id) {
-        Optional<User> user = userService.findUserById(id);
+        Optional<UserResponseDTO> userDTO = userService.findUserById(id);
         
-       if (user.isEmpty()) {
+       if (userDTO.isEmpty()) {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
-                .body("ID resource with ID" + id + "not found.");
+                .body("ID resource with ID " + id + " not found.");
        }        
 
-       return ResponseEntity.ok(user.get());
+       return ResponseEntity.ok(userDTO.get());
     }
 
     @PostMapping
@@ -79,17 +80,15 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<User> deleteUser(@PathVariable Long id) {
-        Optional<User> user = userService.findUserById(id);
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+       boolean deleted = userService.deleteById(id);
        
-        if (user.isEmpty()) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(null);
-        }
+       if (!deleted) {
+           return ResponseEntity.notFound().build();
+       }
 
-        User deletedUser = userService.delete(user.get());
-        return ResponseEntity.ok(deletedUser);
+       return ResponseEntity.noContent().build();
+    }
 
     @PatchMapping("/{id}")
     public ResponseEntity<User> patchUser(@PathVariable Long id, @RequestBody UpdateUserRequestDTO request) {
