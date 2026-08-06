@@ -1,4 +1,4 @@
-# 📝 TMA | Task Manager API
+# 📝 TMA | Tasks Management API
 
 > 👨🏻‍💻 **Made by: Murillo Sergio**
 
@@ -15,11 +15,15 @@
 ### User:
 - `POST`: /users
 - `GET`: /users/{id}
+- `DELETE`: /users/{id}
+- `PATCH`: /users/{id}
 
 ### Task:
 - `POST`: /tasks
-- `GET`: /tasks/{id}
 - `GET`: /tasks
+- `GET`: /tasks/{id}
+- `DELETE`: /tasks/{id}
+- `PATCH`: /tasks/{id}
 
 ## Request
 ### `POST /users` Example:
@@ -33,16 +37,7 @@
 
 **Minimum password length: 12**
 
-### `GET /users/{id}` Example:
 
-```json
-{
-  "id": 1,
-  "name": "João Silva",
-  "email": "joao@email.com",
-  "tasks": []
-} 
-```
 ### `POST /tasks` Example:
 
 ```json
@@ -51,20 +46,6 @@
   "description": "Estudar Spring Security",
   "userId": 1
 }
-```
-### `GET /tasks` Example:
-
-```json
-[
-  {
-    "id": "1",
-    "title": "Minha primeira task",
-    "description": "Estudar Spring Security",
-    "completed": true,
-    "createdAt": "2026-07-18",
-    "userId": 1
-  }
-]
 ```
 
 ### `POST /auth/login` Example:
@@ -76,6 +57,26 @@
 }
 ```
 
+**Response: token for use in BearerAuth authentication**
+
+**Use in "Authorize" (Swagger) and Authorization (Postman)**
+
+### `PATCH /users/{id}` Example:
+
+```json
+{
+  "password": "JoaoJoaoJoao"
+}
+```
+
+### `PATCH /tasks/{id}` Example:
+
+```json
+{
+  "description": "Estudar Spring JPA"
+}
+```
+
 ## Response
 - **200:** `OK`
 - **201:** `Created with success`
@@ -84,8 +85,6 @@
 - **403:** `"Forbidden – token expired or insufficient permissions"`
 
 ## Swagger
-![Swagger](https://i.imgur.com/oKA8vRq.png)
-
 Access the interactive API documentation at:
 
 ```
