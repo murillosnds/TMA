@@ -1,8 +1,9 @@
 package github.murillosnds.tma.service;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import github.murillosnds.tma.dto.CreateTaskRequestDTO;
 import github.murillosnds.tma.dto.TaskResponseDTO;
@@ -22,12 +23,9 @@ public class TaskService {
         this.userRepository = userRepository;
     }
 
-    public List<TaskResponseDTO> listAll() {
-        return taskRepository.findAll()
-            .stream()
-            .map(this::toDTO)
-            .toList();  
-
+    public Page<TaskResponseDTO> listAll(Pageable pageable) {
+        return taskRepository.findAll(pageable)
+            .map(this::toDTO);
     }
 
     public Optional<TaskResponseDTO> findTaskById(java.util.UUID id) {
