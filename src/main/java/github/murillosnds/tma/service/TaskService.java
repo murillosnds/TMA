@@ -12,6 +12,7 @@ import github.murillosnds.tma.entity.Task;
 import github.murillosnds.tma.entity.User;
 import github.murillosnds.tma.repository.TaskRepository;
 import github.murillosnds.tma.repository.UserRepository;
+import java.util.UUID;
 
 @Service
 public class TaskService {
@@ -29,7 +30,7 @@ public class TaskService {
             .map(this::toDTO);
     }
 
-    public Optional<TaskResponseDTO> findTaskById(java.util.UUID id) {
+    public Optional<TaskResponseDTO> findTaskById(UUID id) {
         return taskRepository.findById(id)
             .map(this::toDTO); 
     }

@@ -46,8 +46,12 @@ public class TaskController {
     @ApiResponse(responseCode = "403", description = "Forbidden – token expired or insufficient permissions",
                  content = @Content)
     })
-    public ResponseEntity<List<TaskResponseDTO>> listTasks() {
-        return ResponseEntity.ok(taskService.listAll());
+    public ResponseEntity<Page<TaskResponseDTO>> listTasks(
+        @ParameterObject
+        @PageableDefault(page = 0, size = 20, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable 
+    ) {
+        Page<TaskResponseDTO> tasks = taskService.listAll(pageable);
+        return ResponseEntity.ok(tasks);
     }
 
     @GetMapping("/{id}")
