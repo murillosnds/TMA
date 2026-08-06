@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Optional;
+import github.murillosnds.tma.dto.UserResponseDTO;
 import github.murillosnds.tma.entity.User;
 import github.murillosnds.tma.repository.UserRepository;
 
@@ -58,10 +58,11 @@ public class UserServiceTest {
 
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
-        Optional<User> result = userService.findUserById(1L);
+        Optional<UserResponseDTO> result = userService.findUserById(1L);
 
         assertTrue(result.isPresent());
-        assertEquals("joao@email.com", result.get().getEmail());
+        assertEquals("joao@email.com", result.get().email());
+        assertEquals(1L, result.get().id());
     }
 
     @Test
@@ -69,7 +70,7 @@ public class UserServiceTest {
 
         when(userRepository.findById(99L)).thenReturn(Optional.empty());
 
-        Optional<User> result = userService.findUserById(99L);
+        Optional<UserResponseDTO> result = userService.findUserById(99L);
 
         assertTrue(result.isEmpty());
     }
