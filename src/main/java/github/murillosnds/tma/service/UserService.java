@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import github.murillosnds.tma.entity.User;
 import github.murillosnds.tma.repository.UserRepository;
+import github.murillosnds.tma.dto.UpdateUserRequestDTO;
 
 @Service
 public class UserService {
@@ -33,7 +34,20 @@ public class UserService {
         return user;
     }
 
-    public User update(User user) {
+    public User patchUser(Long id, UpdateUserRequestDTO request) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+
+        if (request.name() != null && !request.name().isBlank()) {
+            user.setName(request.name());
+        }
+        if (request.email() != null && !request.email().isBlank()) {
+            user.setEmail(request.email());
+        }
+        if (request.password() != null && !request.password().isBlank()) {
+            user.setPassword(passwordEncoder.encode(request.password()));
+        }
+
         return userRepository.save(user);
     }
 

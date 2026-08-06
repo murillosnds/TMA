@@ -6,12 +6,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;   
 import org.springframework.web.bind.annotation.RequestBody; 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import github.murillosnds.tma.dto.CreateUserRequestDTO;
+import github.murillosnds.tma.dto.UpdateUserRequestDTO;
 import github.murillosnds.tma.entity.User;
 import github.murillosnds.tma.service.UserService;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -79,7 +81,7 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<User> deleteUser(@PathVariable Long id) {
         Optional<User> user = userService.findUserById(id);
-        
+       
         if (user.isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
@@ -88,5 +90,10 @@ public class UserController {
 
         User deletedUser = userService.delete(user.get());
         return ResponseEntity.ok(deletedUser);
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<User> patchUser(@PathVariable Long id, @RequestBody UpdateUserRequestDTO request) {
+        User updatedUser = userService.patchUser(id, request);
+        return ResponseEntity.ok(updatedUser);
     }
 }
