@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import github.murillosnds.tma.dto.CreateTaskRequestDTO;
 import github.murillosnds.tma.dto.TaskResponseDTO;
+import github.murillosnds.tma.dto.UpdateTaskRequestDTO;
 import github.murillosnds.tma.entity.Task;
 import github.murillosnds.tma.entity.User;
 import github.murillosnds.tma.repository.TaskRepository;
@@ -53,8 +54,23 @@ public class TaskService {
     public void deleteTaskById(java.util.UUID id) {
         if (!taskRepository.existsById(id)) {
             throw new RuntimeException("Task not found!");
+
+    public TaskResponseDTO updateTask(UUID id, UpdateTaskRequestDTO request) {
+        Task task = taskRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Task not found!"));
+
+        if (request.title() != null) {
+            task.setTitle(request.title());
         }
-        taskRepository.deleteById(id);
+        if (request.description() != null) {
+            task.setDescription(request.description());
+        }
+        if (request.completed() != null) {
+            task.setCompleted(request.completed());
+        }
+
+        Task updatedTask = taskRepository.save(task);
+        return toDTO(updatedTask);
     }
 
     private TaskResponseDTO toDTO(Task task) {
