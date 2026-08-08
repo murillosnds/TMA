@@ -8,7 +8,7 @@
 ![Swagger](https://img.shields.io/badge/swagger-000000?style=for-the-badge&logo=swagger&logoColor=green)
 ![PostgreSQL](https://img.shields.io/badge/postgresql-000000?style=for-the-badge&logo=postgresql&logoColor=green)
 ![Docker](https://img.shields.io/badge/docker-000000?style=for-the-badge&logo=docker&logoColor=green)
-![Argon2](https://img.shields.io/badge/argon2-000000?style=for-the-badge&logoColor=green)
+![Argon2](https://img.shields.io/badge/argon2-000000?style=for-the-badge&logo=letsencrypt&logoColor=green)
 
 ## Endpoints: 
 
@@ -17,6 +17,7 @@
 - `GET`: /users/{id}
 - `DELETE`: /users/{id}
 - `PATCH`: /users/{id}
+- `PATCH`: /users/{id}/password
 
 ### Task:
 - `POST`: /tasks
@@ -24,6 +25,10 @@
 - `GET`: /tasks/{id}
 - `DELETE`: /tasks/{id}
 - `PATCH`: /tasks/{id}
+
+### Login:
+
+- `POST`: /auth/login
 
 ## Request
 ### `POST /users` Example:
@@ -69,6 +74,15 @@
 }
 ```
 
+### `PATCH /users/{id}/password` Example:
+
+```json
+{
+  "currentPassword": "JoaoJoaoJoao",
+  "newPassword": "`5F5y#B6B[!,"
+}
+```
+
 ### `PATCH /tasks/{id}` Example:
 
 ```json
@@ -76,6 +90,8 @@
   "description": "Estudar Spring JPA"
 }
 ```
+
+
 
 ## Response
 - **200:** `OK`
