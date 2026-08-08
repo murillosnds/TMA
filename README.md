@@ -1,5 +1,10 @@
 # 📝 TMA | Tasks Management API
 
+<div style="display: flex; justify-content: center; align-items: center;">
+<img src="https://i.imgur.com/7QMvdwE.png">
+</div>
+<br>
+
 > 👨🏻‍💻 **Made by: Murillo Sergio**
 
 ![Java](https://img.shields.io/badge/Java-black?style=for-the-badge&logo=openjdk&logoColor=green)
