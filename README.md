@@ -15,7 +15,19 @@
 ![Docker](https://img.shields.io/badge/docker-000000?style=for-the-badge&logo=docker&logoColor=green)
 ![Argon2](https://img.shields.io/badge/argon2-000000?style=for-the-badge&logo=letsencrypt&logoColor=green)
 
-## Endpoints: 
+## Folder structure
+
+|  📁  | 🔗                                                                                                                                                                                                                  |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Entity  | [![Ver](https://img.shields.io/badge/VIEW-100000?style=for-the-badge&logo=VIEW&logoColor=white&labelColor=black&color=black)](https://github.com/murillosnds/TMA/tree/main/src/main/java/github/murillosnds/tma/entity)                        |
+| DTO  | [![Ver](https://img.shields.io/badge/VIEW-100000?style=for-the-badge&logo=VIEW&logoColor=white&labelColor=black&color=black)](https://github.com/murillosnds/TMA/tree/main/src/main/java/github/murillosnds/tma/dto)                        |
+| Repository  | [![Ver](https://img.shields.io/badge/VIEW-100000?style=for-the-badge&logo=VIEW&logoColor=white&labelColor=black&color=black)](https://github.com/murillosnds/TMA/tree/main/src/main/java/github/murillosnds/tma/repository)                        |
+| Service  | [![Ver](https://img.shields.io/badge/VIEW-100000?style=for-the-badge&logo=VIEW&logoColor=white&labelColor=black&color=black)](https://github.com/murillosnds/TMA/tree/main/src/main/java/github/murillosnds/tma/service)                        |
+| Controller  | [![Ver](https://img.shields.io/badge/VIEW-100000?style=for-the-badge&logo=VIEW&logoColor=white&labelColor=black&color=black)](https://github.com/murillosnds/TMA/tree/main/src/main/java/github/murillosnds/tma/controller)                        |
+| Security  | [![Ver](https://img.shields.io/badge/VIEW-100000?style=for-the-badge&logo=VIEW&logoColor=white&labelColor=black&color=black)](https://github.com/murillosnds/TMA/tree/main/src/main/java/github/murillosnds/tma/security)                        |
+| Config  | [![Ver](https://img.shields.io/badge/VIEW-100000?style=for-the-badge&logo=VIEW&logoColor=white&labelColor=black&color=black)](https://github.com/murillosnds/TMA/tree/main/src/main/java/github/murillosnds/tma/config)                        |
+
+## Endpoints
 
 ### User:
 - `POST`: /users
@@ -75,7 +87,7 @@
 
 ```json
 {
-  "password": "JoaoJoaoJoao"
+  "name": "Joao Silva Santos"
 }
 ```
 
@@ -83,7 +95,7 @@
 
 ```json
 {
-  "currentPassword": "JoaoJoaoJoao",
+  "currentPassword": "stringstring",
   "newPassword": "`5F5y#B6B[!,"
 }
 ```
