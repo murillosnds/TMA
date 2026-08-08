@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody; 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import github.murillosnds.tma.dto.ChangePasswordRequestDTO;
 import github.murillosnds.tma.dto.CreateUserRequestDTO;
 import github.murillosnds.tma.dto.UpdateUserRequestDTO;
 import github.murillosnds.tma.dto.UserResponseDTO;
@@ -94,5 +96,11 @@ public class UserController {
     public ResponseEntity<User> patchUser(@PathVariable Long id, @RequestBody UpdateUserRequestDTO request) {
         User updatedUser = userService.patchUser(id, request);
         return ResponseEntity.ok(updatedUser);
+    }
+
+    @PatchMapping("/{id}/password")
+    public ResponseEntity<Void> changePassword(@PathVariable Long id, @RequestBody @Valid ChangePasswordRequestDTO request) {
+        userService.changePassword(id, request);
+        return ResponseEntity.noContent().build();
     }
 }

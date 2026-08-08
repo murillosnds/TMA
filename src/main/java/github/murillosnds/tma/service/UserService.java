@@ -7,8 +7,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import github.murillosnds.tma.entity.User;
 import github.murillosnds.tma.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
+import github.murillosnds.tma.dto.ChangePasswordRequestDTO;
 import github.murillosnds.tma.dto.UpdateUserRequestDTO;
 import github.murillosnds.tma.dto.UserResponseDTO;
+import org.springframework.security.authentication.BadCredentialsException;
 
 @Service
 public class UserService {
@@ -40,6 +43,18 @@ public class UserService {
         return true;
     }
 
+    public void changePassword(Long id, ChangePasswordRequestDTO request) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + id));
+
+        if (!passwordEncoder.matches(request.currentPassword(), user.getPassword())) {
+            throw new BadCredentialsException("Current password is incorrect");
+        }
+
+        user.setPassword(passwordEncoder.encode(request.newPassword()));
+        userRepository.save(user);
+    }
+
     public User patchUser(Long id, UpdateUserRequestDTO request) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
@@ -49,9 +64,6 @@ public class UserService {
         }
         if (request.email() != null && !request.email().isBlank()) {
             user.setEmail(request.email());
-        }
-        if (request.password() != null && !request.password().isBlank()) {
-            user.setPassword(passwordEncoder.encode(request.password()));
         }
 
         return userRepository.save(user);
