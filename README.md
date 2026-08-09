@@ -156,7 +156,7 @@ DB_USERNAME=postgres
 DB_PASSWORD=your_password
 ```
 
-### How to generate a secure key
+### How to generate a secret key
 
 Run the following command in your terminal:
 
